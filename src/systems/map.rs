@@ -1,5 +1,6 @@
 use crate::bundles::tiles::grass::GrassTileBundle;
 use crate::enums::z_layer::ZLayer;
+use crate::{MAP_HEIGHT, MAP_WIDTH};
 use bevy::prelude::*;
 use bevy_ecs_tilemap::prelude::{get_tilemap_center_transform, TilePos, TileStorage, TilemapId, TilemapSize, TilemapTexture, TilemapTileSize, TilemapType};
 use bevy_ecs_tilemap::TilemapBundle;
@@ -16,7 +17,7 @@ pub fn spawn_map(
 
     let texture: Handle<Image> = asset_server.load("overworld.png");
 
-    let map_size = TilemapSize { x: 20, y: 20 };
+    let map_size = TilemapSize { x: MAP_WIDTH, y: MAP_HEIGHT };
     let tile_size = TilemapTileSize { x: 8.0, y: 8.0 };
     let grid_size = tile_size.into();
     let map_type = TilemapType::default();

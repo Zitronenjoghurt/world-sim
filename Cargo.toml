@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 bevy = "0.15.0"
 bevy_ecs_tilemap = { version = "0.15.0", features = ["atlas"] }
+rand = "0.8.5"
 
 [profile.dev]
 opt-level = 1

@@ -1,4 +1,5 @@
 use crate::components::enums::tile_type::TileType;
+use crate::components::natural_grass_growth::NaturalGrassGrowth;
 use crate::components::tile::Tile;
 use bevy::prelude::Bundle;
 use bevy_ecs_tilemap::prelude::{TileBundle, TilePos, TileTextureIndex, TilemapId};
@@ -7,6 +8,7 @@ use bevy_ecs_tilemap::prelude::{TileBundle, TilePos, TileTextureIndex, TilemapId
 pub struct GrassTileBundle {
     tile: Tile,
     tile_bundle: TileBundle,
+    grass_growth: NaturalGrassGrowth,
 }
 
 impl GrassTileBundle {
@@ -24,6 +26,10 @@ impl GrassTileBundle {
         Self {
             tile,
             tile_bundle,
+            grass_growth: NaturalGrassGrowth::new(
+                10.0,
+                0.1,
+            ),
         }
     }
 }

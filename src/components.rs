@@ -6,3 +6,4 @@ pub mod plant;
 pub mod tile;
 pub mod growth_timer;
 pub mod growth_stages;
+pub mod natural_grass_growth;

@@ -10,6 +10,9 @@ use crate::plugins::test::TestPlugin;
 use bevy::prelude::{default, App, ImagePlugin, PluginGroup, Window, WindowPlugin};
 use bevy::DefaultPlugins;
 
+const MAP_HEIGHT: u32 = 20;
+const MAP_WIDTH: u32 = 20;
+
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins
