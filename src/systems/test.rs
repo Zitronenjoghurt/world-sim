@@ -1,7 +1,8 @@
+use crate::bundles::plants::grass::GrassPlantBundle;
 use crate::bundles::rabbit::RabbitBundle;
 use crate::components::generic_properties::name::Name;
 use crate::components::tags::Rabbit;
-use bevy::prelude::{Commands, Query, With};
+use bevy::prelude::{AssetServer, Assets, Commands, Query, Res, ResMut, TextureAtlasLayout, Vec2, With};
 
 pub fn spawn_rabbits(mut commands: Commands) {
     commands.spawn(RabbitBundle::default());
@@ -20,4 +21,18 @@ pub fn greet_rabbits(query: Query<&Name, With<Rabbit>>) {
     for name in &query {
         println!("Oh hello lil bunny '{}'!", name.as_str());
     }
+}
+
+pub fn spawn_grass(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+    mut texture_atlas_layouts: ResMut<Assets<TextureAtlasLayout>>,
+) {
+    commands.spawn(
+        GrassPlantBundle::new(
+            &asset_server,
+            &mut texture_atlas_layouts,
+            Vec2::new(0.0, 0.0),
+        )
+    );
 }

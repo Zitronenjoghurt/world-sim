@@ -1,5 +1,5 @@
-use crate::bundles::tiles::grass::GrassBundle;
-use crate::enums::map_layer::MapLayer;
+use crate::bundles::tiles::grass::GrassTileBundle;
+use crate::enums::z_layer::ZLayer;
 use bevy::prelude::*;
 use bevy_ecs_tilemap::prelude::{get_tilemap_center_transform, TilePos, TileStorage, TilemapId, TilemapSize, TilemapTexture, TilemapTileSize, TilemapType};
 use bevy_ecs_tilemap::TilemapBundle;
@@ -29,7 +29,7 @@ pub fn spawn_map(
         for y in 0..map_size.y {
             let tile_pos = TilePos { x, y };
             let tile_entity = commands.spawn(
-                GrassBundle::new(
+                GrassTileBundle::new(
                     tile_pos,
                     TilemapId(tilemap_entity),
                 )
@@ -45,7 +45,7 @@ pub fn spawn_map(
         tile_size,
         grid_size,
         map_type,
-        transform: get_tilemap_center_transform(&map_size, &grid_size, &map_type, MapLayer::Terrain.into()),
+        transform: get_tilemap_center_transform(&map_size, &grid_size, &map_type, ZLayer::Terrain.into()),
         ..default()
     });
 }
