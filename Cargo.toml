@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 bevy = "0.15.0"
+bevy_ecs_tilemap = { version = "0.15.0", features = ["atlas"] }
 
 [profile.dev]
 opt-level = 1

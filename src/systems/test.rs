@@ -1,11 +1,11 @@
-use bevy::prelude::{Commands, Query, With};
 use crate::bundles::rabbit::RabbitBundle;
-use crate::components::generic_properties::Name;
+use crate::components::generic_properties::name::Name;
 use crate::components::tags::Rabbit;
+use bevy::prelude::{Commands, Query, With};
 
 pub fn spawn_rabbits(mut commands: Commands) {
     commands.spawn(RabbitBundle::default());
-    commands.spawn(RabbitBundle::new("Cookie"));
+    commands.spawn(RabbitBundle::new("Cookie", 0, 0));
 }
 
 pub fn update_rabbit_names(mut query: Query<&mut Name, With<Rabbit>>) {
