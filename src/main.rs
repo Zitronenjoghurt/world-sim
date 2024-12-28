@@ -3,6 +3,7 @@ mod bundles;
 mod systems;
 mod plugins;
 mod enums;
+mod helpers;
 
 use crate::plugins::map::MapPlugin;
 use crate::plugins::plants::PlantsPlugin;
@@ -10,8 +11,13 @@ use crate::plugins::test::TestPlugin;
 use bevy::prelude::{default, App, ImagePlugin, PluginGroup, Window, WindowPlugin};
 use bevy::DefaultPlugins;
 
-const MAP_HEIGHT: u32 = 20;
-const MAP_WIDTH: u32 = 20;
+const TILE_SIZE: u32 = 8;
+const MAP_HEIGHT_TILES: u32 = 20;
+const MAP_WIDTH_TILES: u32 = 20;
+const MAP_HEIGHT_PX: u32 = TILE_SIZE * MAP_HEIGHT_TILES;
+const MAP_WIDTH_PX: u32 = MAP_WIDTH_TILES * TILE_SIZE;
+const HALF_MAP_HEIGHT_PX: u32 = MAP_HEIGHT_PX / 2;
+const HALF_MAP_WIDTH_PX: u32 = MAP_WIDTH_PX / 2;
 
 fn main() {
     App::new()
