@@ -36,7 +36,7 @@ impl GrassPlantBundle {
             0.0,
             30.0,
             0.1,
-            0.025,
+            0.05,
         );
 
         let atlas_config =

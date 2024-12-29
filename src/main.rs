@@ -9,6 +9,7 @@ use crate::plugins::debug::DebugPlugin;
 use crate::plugins::map::MapPlugin;
 use crate::plugins::plants::PlantsPlugin;
 use bevy::prelude::{default, App, ImagePlugin, PluginGroup, Window, WindowPlugin};
+use bevy::window::PresentMode;
 use bevy::DefaultPlugins;
 
 const TILE_SIZE: u32 = 8;
@@ -27,6 +28,7 @@ fn main() {
                     primary_window: Some(
                         Window {
                             title: "World Sim".to_string(),
+                            present_mode: PresentMode::Immediate,
                             ..default()
                         }
                     ),
