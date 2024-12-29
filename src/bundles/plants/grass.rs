@@ -51,7 +51,7 @@ impl GrassPlantBundle {
         sprite.anchor = BottomCenter;
 
         Self {
-            plant: Plant::new(PlantType::Grass, 3, 5.0),
+            plant: Plant::new(PlantType::Grass, 3, 5.0, 10.0),
             growth_stages,
             sprite,
             transform: Transform::from_xyz(position.x, position.y, ZLayer::Plants.into()),

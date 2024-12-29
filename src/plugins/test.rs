@@ -1,7 +1,7 @@
 use crate::systems;
 use bevy::app::{App, Startup};
-use bevy::prelude::IntoSystemConfigs;
 use bevy::prelude::Plugin;
+use bevy::prelude::{IntoSystemConfigs, Update};
 
 pub struct TestPlugin;
 
@@ -16,6 +16,9 @@ impl Plugin for TestPlugin {
                 ).chain(),
                 systems::test::spawn_grass
             ),
+        );
+        app.add_systems(
+            Update, systems::test::consume_stuff,
         );
     }
 }

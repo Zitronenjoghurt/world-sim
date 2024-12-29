@@ -1,8 +1,9 @@
 use crate::bundles::plants::grass::GrassPlantBundle;
 use crate::bundles::rabbit::RabbitBundle;
 use crate::components::generic_properties::name::Name;
+use crate::components::nutrition::Nutrition;
 use crate::components::tags::Rabbit;
-use bevy::prelude::{AssetServer, Assets, Commands, Query, Res, ResMut, TextureAtlasLayout, Vec2, With};
+use bevy::prelude::{AssetServer, Assets, Commands, Entity, Query, Res, ResMut, TextureAtlasLayout, Vec2, With};
 
 pub fn spawn_rabbits(mut commands: Commands) {
     commands.spawn(RabbitBundle::default());
@@ -35,4 +36,15 @@ pub fn spawn_grass(
             Vec2::new(0.0, 0.0),
         )
     );
+}
+
+pub fn consume_stuff(
+    mut commands: Commands,
+    mut query: Query<(Entity, &mut Nutrition)>,
+) {
+    println!("Consuming stuff!");
+    for (entity, mut nutrition) in query.iter_mut() {
+        println!("Yep");
+        nutrition.consume_all(entity, &mut commands);
+    }
 }
