@@ -28,7 +28,7 @@ fn main() {
                     primary_window: Some(
                         Window {
                             title: "World Sim".to_string(),
-                            present_mode: PresentMode::Immediate,
+                            present_mode: PresentMode::AutoNoVsync,
                             ..default()
                         }
                     ),

@@ -33,6 +33,7 @@ impl GrassPlantBundle {
 
         let base = BasePlantBundle::new(
             PlantType::Grass,
+            10.0,
             0.0,
             30.0,
             0.1,

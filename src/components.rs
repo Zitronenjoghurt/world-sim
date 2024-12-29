@@ -3,3 +3,4 @@ pub mod tilemap_type;
 pub mod plant_type;
 pub mod plant_growth;
 pub mod growth_stages;
+pub mod nutrition;

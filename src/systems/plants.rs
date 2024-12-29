@@ -1,4 +1,5 @@
 use crate::components::growth_stages::GrowthStages;
+use crate::components::nutrition::Nutrition;
 use crate::components::plant_growth::PlantGrowth;
 use bevy::prelude::{Changed, Query, Res, Sprite, Time};
 
@@ -19,5 +20,14 @@ pub fn update_plant_visuals(
             let stage_index = growth.get_current_growth_stage_index(stages.count());
             texture_atlas.index = stages.get_index(stage_index);
         }
+    }
+}
+
+pub fn update_plant_nutrition(
+    mut query: Query<(&PlantGrowth, &mut Nutrition), Changed<PlantGrowth>>
+) {
+    for (growth, mut nutrition) in query.iter_mut() {
+        let nutrition_value = growth.get_nutrition();
+        nutrition.set_value(nutrition_value);
     }
 }

@@ -5,6 +5,7 @@ use std::time::Duration;
 #[derive(Component)]
 pub struct PlantGrowth {
     progress: f32,
+    max_nutrition: f32,
     min_progress_per_step: f32,
     max_progress_per_step: f32,
     timer: Timer,
@@ -13,12 +14,14 @@ pub struct PlantGrowth {
 impl PlantGrowth {
     pub fn new(
         base_progress: f32,
+        max_nutrition: f32,
         min_progress_per_step: f32,
         max_progress_per_step: f32,
         step_duration_seconds: f32,
     ) -> Self {
         Self {
             progress: base_progress,
+            max_nutrition,
             min_progress_per_step,
             max_progress_per_step,
             timer: Timer::from_seconds(step_duration_seconds, TimerMode::Repeating),
@@ -45,5 +48,9 @@ impl PlantGrowth {
 
     pub fn get_current_growth_stage_index(&self, max_stages: usize) -> usize {
         (self.progress * (max_stages - 1) as f32).ceil() as usize
+    }
+
+    pub fn get_nutrition(&self) -> f32 {
+        self.max_nutrition * self.progress
     }
 }
