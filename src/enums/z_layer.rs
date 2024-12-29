@@ -1,8 +1,7 @@
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug)]
 #[repr(u8)]
 pub enum ZLayer {
-    Terrain = 0,
-    Plants = 1,
+    Terrain = 0
 }
 
 impl From<ZLayer> for f32 {

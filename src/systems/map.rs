@@ -1,52 +1,46 @@
+use crate::bundles::tilemaps::overworld::OverworldTilemapBundle;
 use crate::bundles::tiles::grass::GrassTileBundle;
-use crate::enums::z_layer::ZLayer;
-use crate::{MAP_HEIGHT_TILES, MAP_WIDTH_TILES};
-use bevy::prelude::*;
-use bevy_ecs_tilemap::prelude::{get_tilemap_center_transform, TilePos, TileStorage, TilemapId, TilemapSize, TilemapTexture, TilemapTileSize, TilemapType};
-use bevy_ecs_tilemap::TilemapBundle;
+use crate::components::tilemap_type::BaseTilemapType;
+use bevy::prelude::{default, AssetServer, Camera2dBundle, Commands, Entity, Query, Res, Transform, Vec3};
+use bevy_ecs_tilemap::prelude::{TilePos, TileStorage, TilemapSize};
 
-pub fn spawn_map(
-    mut commands: Commands,
-    asset_server: Res<AssetServer>,
-) {
-    // ToDo: Fix deprecation
+pub fn spawn_camera(mut commands: Commands) {
     commands.spawn(Camera2dBundle {
         transform: Transform::from_scale(Vec3::splat(0.25)),
         ..default()
     });
+}
 
-    let texture: Handle<Image> = asset_server.load("overworld.png");
+pub fn spawn_maps(
+    mut commands: Commands,
+    asset_server: Res<AssetServer>,
+) {
+    let overworld = OverworldTilemapBundle::new(&asset_server);
+    commands.spawn(overworld);
+}
 
-    let map_size = TilemapSize { x: MAP_WIDTH_TILES, y: MAP_HEIGHT_TILES };
-    let tile_size = TilemapTileSize { x: 8.0, y: 8.0 };
-    let grid_size = tile_size.into();
-    let map_type = TilemapType::default();
-
-    let mut tile_storage = TileStorage::empty(map_size);
-
-    let tilemap_entity = commands.spawn_empty().id();
-
-    for x in 0..map_size.x {
-        for y in 0..map_size.y {
-            let tile_pos = TilePos { x, y };
-            let tile_entity = commands.spawn(
-                GrassTileBundle::new(
-                    tile_pos,
-                    TilemapId(tilemap_entity),
-                )
-            ).id();
-            tile_storage.set(&tile_pos, tile_entity);
+pub fn spawn_tiles(
+    mut commands: Commands,
+    mut query: Query<(Entity, &mut TileStorage, &TilemapSize, &BaseTilemapType)>,
+) {
+    for (entity, mut storage, size, tilemap_type) in query.iter_mut() {
+        match tilemap_type {
+            BaseTilemapType::Overworld => spawn_grass(&mut commands, entity, &mut storage, size),
         }
     }
+}
 
-    commands.entity(tilemap_entity).insert(TilemapBundle {
-        size: map_size,
-        storage: tile_storage,
-        texture: TilemapTexture::Single(texture),
-        tile_size,
-        grid_size,
-        map_type,
-        transform: get_tilemap_center_transform(&map_size, &grid_size, &map_type, ZLayer::Terrain.into()),
-        ..default()
-    });
+fn spawn_grass(
+    commands: &mut Commands,
+    tilemap_entity: Entity,
+    tile_storage: &mut TileStorage,
+    tilemap_size: &TilemapSize,
+) {
+    for x in 0..tilemap_size.x {
+        for y in 0..tilemap_size.y {
+            let tile_bundle = GrassTileBundle::new(x, y, tilemap_entity);
+            let tile_entity = commands.spawn(tile_bundle).id();
+            tile_storage.set(&TilePos { x, y }, tile_entity);
+        }
+    }
 }
