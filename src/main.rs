@@ -5,7 +5,9 @@ mod bundles;
 mod systems;
 mod enums;
 
+use crate::plugins::debug::DebugPlugin;
 use crate::plugins::map::MapPlugin;
+use crate::plugins::plants::PlantsPlugin;
 use bevy::prelude::{default, App, ImagePlugin, PluginGroup, Window, WindowPlugin};
 use bevy::DefaultPlugins;
 
@@ -34,5 +36,7 @@ fn main() {
             .set(ImagePlugin::default_nearest())
         )
         .add_plugins(MapPlugin)
+        .add_plugins(PlantsPlugin)
+        .add_plugins(DebugPlugin)
         .run();
 }
